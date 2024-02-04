@@ -1,13 +1,13 @@
 "use client";
 
 import { forwardRef } from "react";
-import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { FormErrors } from "./form-errors";
+import { experimental_useFormStatus } from "react-dom";
 
 interface FormInputProps {
   id: string;
@@ -34,7 +34,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
   defaultValue = "",
   onBlur
 }, ref) => {
-  const { pending } = useFormStatus();
+  const { pending } = experimental_useFormStatus();
 
   return (
     <div className="space-y-2">

@@ -1,9 +1,9 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { experimental_useFormStatus } from "react-dom";
 
 interface FormSubmitProps {
   children: React.ReactNode;
@@ -18,13 +18,13 @@ export const FormSubmit = ({
   className,
   variant = "primary"
 }: FormSubmitProps) => {
-  const { pending } = useFormStatus();
+  const { pending } = experimental_useFormStatus();
 
   return (
     <Button
       disabled={pending || disabled}
       type="submit"
-      variant={variant}
+      variant="outline"
       size="sm"
       className={cn(className)}
     >

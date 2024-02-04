@@ -23,7 +23,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const isPro = await checkSubscription();
 
   const { id } = data;
   let board;
@@ -36,9 +35,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    if (!isPro) {
-      await decreaseAvailableCount();
-    }
 
     await createAuditLog({
       entityTitle: board.title,

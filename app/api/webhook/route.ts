@@ -1,9 +1,11 @@
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs";
 
-import { db } from "@/lib/db";
+
 import { stripe } from "@/lib/stripe";
+import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -15,53 +17,67 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!,
+      process.env.STRIPE_WEBHOOK_SECRET!
     )
-  } catch (error) {
-    return new NextResponse("Webhook error", { status: 400 });
+  } catch (error: any) {
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+  const userId = session?.metadata?.userId;
+  const courseId = session?.metadata?.courseId;
 
   if (event.type === "checkout.session.completed") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
-
-    if (!session?.metadata?.orgId) {
-      return new NextResponse("Org ID is required", { status: 400 });
+    if (!userId || !courseId) {
+      return new NextResponse(`Webhook Error: Missing metadata`, { status: 400 });
     }
 
-    await db.orgSubscription.create({
+    await db.purchase.create({
       data: {
-        orgId: session?.metadata?.orgId,
-        stripeSubscriptionId: subscription.id,
-        stripeCustomerId: subscription.customer as string,
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-      },
+        courseId: courseId,
+        userId: userId,
+      }
     });
-  }
-
-  if (event.type === "invoice.payment_succeeded") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
-
-    await db.orgSubscription.update({
-      where: {
-        stripeSubscriptionId: subscription.id,
-      },
-      data: {
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000,
-        ),
-      },
-    });
+  } else {
+    return new NextResponse(`Webhook Error: Unhandled event type ${event.type}`, { status: 200 })
   }
 
   return new NextResponse(null, { status: 200 });
-};
+}
+
+
+
+export async function GET(
+  req: Request,
+  { params }: { params: { cardId: string } }
+) {
+  try {
+    const { userId, orgId } = auth();
+
+    if (!userId || !orgId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const card = await db.card.findUnique({
+      where: {
+        id: params.cardId,
+        list: {
+          board: {
+            orgId,
+          },
+        },
+      },
+      include: {
+        list: {
+          select: {
+            title: true,
+          },
+        },
+      },
+    });
+
+    return NextResponse.json(card);
+  } catch (error) {
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}

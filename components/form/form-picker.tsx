@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Check, Loader2 } from "lucide-react";
-import { useFormStatus } from "react-dom";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -11,6 +10,7 @@ import { unsplash } from "@/lib/unsplash";
 import { defaultImages } from "@/constants/images";
 
 import { FormErrors } from "./form-errors";
+import { experimental_useFormStatus } from "react-dom";
 
 interface FormPickerProps {
   id: string;
@@ -21,7 +21,7 @@ export const FormPicker = ({
   id,
   errors,
 }: FormPickerProps) => {
-  const { pending } = useFormStatus();
+  const { pending } = experimental_useFormStatus();
 
   const [images, setImages] = useState<Array<Record<string, any>>>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
