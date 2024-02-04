@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { FormErrors } from "./form-errors";
-import { experimental_useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 interface FormInputProps {
   id: string;
@@ -34,7 +34,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
   defaultValue = "",
   onBlur
 }, ref) => {
-  const { pending } = experimental_useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
     <div className="space-y-2">

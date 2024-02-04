@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { FormErrors } from "./form-errors";
-import { experimental_useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 interface FormTextareaProps {
   id: string;
@@ -36,7 +36,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>((
   className,
   defaultValue
 }, ref) => {
-  const { pending } = experimental_useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
     <div className="space-y-2 w-full">

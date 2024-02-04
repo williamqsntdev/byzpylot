@@ -10,7 +10,7 @@ import { unsplash } from "@/lib/unsplash";
 import { defaultImages } from "@/constants/images";
 
 import { FormErrors } from "./form-errors";
-import { experimental_useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 interface FormPickerProps {
   id: string;
@@ -21,7 +21,7 @@ export const FormPicker = ({
   id,
   errors,
 }: FormPickerProps) => {
-  const { pending } = experimental_useFormStatus();
+  const { pending } = useFormStatus();
 
   const [images, setImages] = useState<Array<Record<string, any>>>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
