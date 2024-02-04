@@ -1,4 +1,4 @@
 export const siteConfig = {
-  name: "Taskify",
-  description: "Collaborate, manage projects, and reach new productivity peaks",
+  name: "ByzPylot",
+  description: "Navigate through our meticulously crafted roadmap to achieve triumph and success",
 };

@@ -11,8 +11,8 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { StripeRedirect } from "./schema";
 import { InputType, ReturnType } from "./types";
 
-import { absoluteUrl } from "@/lib/utils";
 import { stripe } from "@/lib/stripe";
+import { isAbsoluteUrl } from "next/dist/shared/lib/utils";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -24,7 +24,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const settingsUrl = absoluteUrl(`/organization/${orgId}`);
+  const settingsUrl = isAbsoluteUrl(`/organization/${orgId}`);
 
   let url = "";
 
@@ -55,7 +55,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             price_data: {
               currency: "USD",
               product_data: {
-                name: "Taskify Pro",
+                name: "ByzPylot Pro",
                 description: "Unlimited boards for your organization"
               },
               unit_amount: 2000,
