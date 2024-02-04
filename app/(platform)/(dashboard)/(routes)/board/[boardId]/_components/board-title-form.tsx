@@ -75,7 +75,7 @@ export const BoardTitleForm = ({
   return (
     <Button
       onClick={enableEditing}
-      variant="transparent"
+      variant="outline"
       className="font-bold text-lg h-auto w-auto p-1 px-2"
     >
       {title}
