@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { FormErrors } from "./form-errors";
+// @ts-ignore
 import { useFormStatus } from "react-dom";
 
 interface FormTextareaProps {

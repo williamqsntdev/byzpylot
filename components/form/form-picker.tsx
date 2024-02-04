@@ -10,6 +10,7 @@ import { unsplash } from "@/lib/unsplash";
 import { defaultImages } from "@/constants/images";
 
 import { FormErrors } from "./form-errors";
+// @ts-ignore
 import { useFormStatus } from "react-dom";
 
 interface FormPickerProps {

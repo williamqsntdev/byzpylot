@@ -74,9 +74,9 @@ export const Actions = ({
       <Button
         onClick={onCopy}
         disabled={isLoadingCopy}
-        variant="gray"
+        variant="outline"
         className="w-full justify-start"
-        size="inline"
+        size="default"
       >
         <Copy className="h-4 w-4 mr-2" />
         Copy
@@ -84,9 +84,9 @@ export const Actions = ({
       <Button
         onClick={onDelete}
         disabled={isLoadingDelete}
-        variant="gray"
+        variant="outline"
         className="w-full justify-start"
-        size="inline"
+        size="default"
       >
         <Trash className="h-4 w-4 mr-2" />
         Delete
