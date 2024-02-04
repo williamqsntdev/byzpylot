@@ -41,7 +41,7 @@ const MarketingPage = () => {
           textFont.className
         )}
       >
-        Unlock success with ByzPylot's guided path. From startup to scale-up, we
+        Unlock success with ByzPylot&apos;s guided path. From startup to scale-up, we
         provide the roadmap for your triumph.
       </div>
       <Button className="mt-6" size="lg" asChild>
