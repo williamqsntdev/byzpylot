@@ -8,8 +8,8 @@ import { SidebarItem } from "./sidebar-item";
 const guestRoutes = [
   {
     icon: Layout,
-    label: "Tableau de bord",
-    href: "/",
+    label: "Dashboard",
+    href: "/dashboard",
   },
   {
     icon: Target,
@@ -18,7 +18,7 @@ const guestRoutes = [
   },
   {
     icon: ListTodo,
-    label: "Tâches",
+    label: "Tasks",
     href: "/organization/tasks"
   },
   {
@@ -28,7 +28,7 @@ const guestRoutes = [
   },
   {
     icon: Book,
-    label: "Mes favoris",
+    label: "My Courses",
     href: "/favoris"
   }
 ];
