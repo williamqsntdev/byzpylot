@@ -5,25 +5,25 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model Course {
-  id String @id @default(uuid())
-  userId String
-  title String @db.Text
+  id          String  @id @default(uuid())
+  userId      String
+  title       String  @db.Text
   description String? @db.Text
-  imageUrl String? @db.Text
-  price Float?
+  imageUrl    String? @db.Text
+  price       Float?
   isPublished Boolean @default(false)
 
   categoryId String?
-  category Category? @relation(fields: [categoryId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id])
 
-  chapters Chapter[]
+  chapters    Chapter[]
   attachments Attachment[]
-  purchases Purchase[]
+  purchases   Purchase[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -33,18 +33,18 @@ model Course {
 }
 
 model Category {
-  id String @id @default(uuid())
-  name String @unique
+  id      String   @id @default(uuid())
+  name    String   @unique
   courses Course[]
 }
 
 model Attachment {
-  id String @id @default(uuid())
+  id   String @id @default(uuid())
   name String
-  url String @db.Text
+  url  String @db.Text
 
   courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,18 +53,18 @@ model Attachment {
 }
 
 model Chapter {
-  id String @id @default(uuid())
-  title String
+  id          String  @id @default(uuid())
+  title       String
   description String? @db.Text
-  videoUrl String? @db.Text
-  position Int
+  videoUrl    String? @db.Text
+  position    Int
   isPublished Boolean @default(false)
-  isFree Boolean @default(false)
+  isFree      Boolean @default(false)
 
   muxData MuxData?
 
   courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
 
@@ -75,36 +75,36 @@ model Chapter {
 }
 
 model MuxData {
-  id String @id @default(uuid())
-  assetId String
+  id         String  @id @default(uuid())
+  assetId    String
   playbackId String?
 
-  chapterId String @unique
-  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String  @unique
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
 model UserProgress {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
   userId String
 
   chapterId String
-  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   isCompleted Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([chapterId])
   @@unique([userId, chapterId])
+  @@index([chapterId])
 }
 
 model Purchase {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
   userId String
 
   courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
@@ -114,14 +114,13 @@ model Purchase {
 }
 
 model StripeCustomer {
-  id String @id @default(uuid())
-  userId String @unique
+  id               String @id @default(uuid())
+  userId           String @unique
   stripeCustomerId String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 
 model Board {
   id            String @id @default(uuid())
@@ -132,22 +131,21 @@ model Board {
   imageFullUrl  String @db.Text
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
-
   lists         List[]
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model List {
-  id        String @id @default(uuid())
-  title     String
-  order     Int
+  id    String @id @default(uuid())
+  title String
+  order Int
 
-  boardId   String
-  board     Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
 
-  cards     Card[]
+  cards Card[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -156,16 +154,16 @@ model List {
 }
 
 model Card {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   order       Int
   description String? @db.Text
 
-  listId      String
-  list        List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([listId])
 }
@@ -183,35 +181,67 @@ enum ENTITY_TYPE {
 }
 
 model AuditLog {
-  id          String  @id @default(uuid())
+  id          String      @id @default(uuid())
   orgId       String
   action      ACTION
   entityId    String
   entityType  ENTITY_TYPE
   entityTitle String
   userId      String
-  userImage   String @db.Text
-  userName    String @db.Text
+  userImage   String      @db.Text
+  userName    String      @db.Text
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model OrgLimit {
-  id          String @id @default(uuid())
-  orgId       String @unique
-  count       Int @default(0)
+  id    String @id @default(uuid())
+  orgId String @unique
+  count Int    @default(0)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model OrgSubscription {
-  id                String @id @default(uuid())
-  orgId             String @unique
+  id    String @id @default(uuid())
+  orgId String @unique
 
-  stripeCustomerId  String? @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
-  stripePriceId        String? @map(name: "stripe_price_id")
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+}
+
+model Mission {
+  id                  String                @id @default(uuid())
+  categoryId          Int?
+  category            CategoryMission?      @relation(fields: [categoryId], references: [id])
+  order               Int
+  title               String
+  description         String
+  tips                String
+  MissionUserProgress MissionUserProgress[]
+
+  @@index([categoryId])
+}
+
+model CategoryMission {
+  id       Int       @id @unique
+  name     String    @unique
+  missions Mission[]
+}
+
+model MissionUserProgress {
+  id          String   @id @default(uuid())
+  userId      String
+  missionId   String
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  mission Mission @relation(fields: [missionId], references: [id])
+
+  @@index([missionId])
 }

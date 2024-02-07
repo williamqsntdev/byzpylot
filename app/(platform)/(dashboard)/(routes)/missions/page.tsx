@@ -6,7 +6,7 @@ import { getDashboardCourses } from "@/actions/courses/get-dashboard-courses";
 import { CoursesList } from "@/components/courses-list";
 
 import DifficultyBar from "@/components/difficulty-bar";
-import { MissionCard } from "./_components/mission-card";
+import MissionsCard from "./_components/mission-card";
 
 export default async function MissionPage() {
   const { userId } = auth();
@@ -19,21 +19,6 @@ export default async function MissionPage() {
     userId
   );
 
-  const missions = [
-    {
-      title: 'Mission 1',
-      description: 'Effectuer une analyse approfondie des besoins du client.',
-    },
-    {
-      title: 'Mission 2',
-      description: 'Développer et implémenter une solution personnalisée.',
-    },
-    {
-      title: 'Mission 3',
-      description: 'Tester la solution et fournir des rapports détaillés.',
-    },
-  ];
-  
 
   return (
     <div className="p-6 space-y-4">
@@ -43,7 +28,7 @@ export default async function MissionPage() {
           My missions
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-         <MissionCard />
+         <MissionsCard />
       </div>
       </div>
     </div>

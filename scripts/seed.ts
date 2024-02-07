@@ -13,7 +13,62 @@ async function main() {
         { name: "Accounting" },
         { name: "Engineering" },
         { name: "Filming" },
-      ]
+      ],
+    });
+
+    await database.CategoryMission.createMany({
+      data: [
+        { id: 1, name: "E-commerce" },
+        { id: 2, name: "Agency" },
+        { id: 3, name: "Investment" },
+        { id: 4, name: "Trading" },
+        { id: 5, name: "Closing" },
+      ],
+    });
+
+    await database.Mission.createMany({
+      data: [
+        {
+          categoryId: 1,
+          order: 1,
+          title: "Find a product winner",
+          description:
+            "A product winner is the start of your e-commerce business",
+          tips: "you'll have to do...",
+        },
+        {
+          categoryId: 1,
+          order: 2,
+          title: "Find a product winner",
+          description:
+            "A product winner is the start of your e-commerce business",
+          tips: "you'll have to do...",
+        },
+        {
+          categoryId: 1,
+          order: 3,
+          title: "Find a product winner",
+          description:
+            "A product winner is the start of your e-commerce business",
+          tips: "you'll have to do...",
+        },
+        {
+          categoryId: 1,
+          order: 4,
+          title: "Find a product winner",
+          description:
+            "A product winner is the start of your e-commerce business",
+          tips: "you'll have to do...",
+        },
+        {
+          categoryId: 1,
+          order: 5,
+          title: "Find a product winner",
+          description:
+            "A product winner is the start of your e-commerce business",
+          tips: "you'll have to do...",
+        },
+      ],
     });
 
     console.log("Success");
