@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, Book, Compass, Layout, List, ListTodo, Target } from "lucide-react";
+import { AlignHorizontalDistributeCenter, BarChart, Book, Compass, Layers, Layout, List, ListTodo, Target } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
@@ -10,6 +10,11 @@ const guestRoutes = [
     icon: Layout,
     label: "Dashboard",
     href: "/dashboard",
+  },
+  {
+    icon: Layers,
+    label: "Leads",
+    href: "/leads"
   },
   {
     icon: Target,

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface DifficultyBarProps {
-  level: "easy" | "medium" | "hard";
+  level: "easy" | "medium" | "hard" | string;
 }
 
 const DifficultyBar: React.FC<DifficultyBarProps> = ({ level }) => {

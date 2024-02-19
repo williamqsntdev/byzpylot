@@ -1,3 +1,4 @@
+import DifficultyBar from "@/components/difficulty-bar";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PrismaClient } from "@prisma/client";
 import { Card } from "@tremor/react";
@@ -29,6 +30,7 @@ const MissionCard = async () => {
             </CardHeader>
             <CardContent>
               <p className="text-gray-200">{mission.description}</p>
+              <DifficultyBar level={mission.difficulty} />
             </CardContent>
           </Card>
         ))}

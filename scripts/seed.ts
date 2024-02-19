@@ -25,7 +25,6 @@ async function main() {
         { id: 5, name: "Closing" },
       ],
     });
-
     await database.Mission.createMany({
       data: [
         {
@@ -35,6 +34,7 @@ async function main() {
           description:
             "A product winner is the start of your e-commerce business",
           tips: "you'll have to do...",
+          difficulty: 'hard'
         },
         {
           categoryId: 1,
@@ -43,6 +43,7 @@ async function main() {
           description:
             "A product winner is the start of your e-commerce business",
           tips: "you'll have to do...",
+          difficulty: 'medium'
         },
         {
           categoryId: 1,
@@ -51,6 +52,7 @@ async function main() {
           description:
             "A product winner is the start of your e-commerce business",
           tips: "you'll have to do...",
+          difficulty : 'hard'
         },
         {
           categoryId: 1,
@@ -59,6 +61,7 @@ async function main() {
           description:
             "A product winner is the start of your e-commerce business",
           tips: "you'll have to do...",
+          difficulty : 'hard'
         },
         {
           categoryId: 1,
@@ -67,6 +70,7 @@ async function main() {
           description:
             "A product winner is the start of your e-commerce business",
           tips: "you'll have to do...",
+          difficulty : 'hard'
         },
       ],
     });

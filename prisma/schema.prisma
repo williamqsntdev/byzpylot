@@ -221,8 +221,9 @@ model Mission {
   order               Int
   title               String
   description         String
-  tips                String
+  tips                String?
   MissionUserProgress MissionUserProgress[]
+  difficulty          String
 
   @@index([categoryId])
 }
@@ -244,4 +245,19 @@ model MissionUserProgress {
   mission Mission @relation(fields: [missionId], references: [id])
 
   @@index([missionId])
+}
+
+
+model Lead {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  email        String
+  phoneNumber  String
+  status       String   
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
 }
